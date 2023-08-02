@@ -1,4 +1,4 @@
-import { BadRequestException, Inject, Injectable, NotFoundException, Query } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from "@nestjs/typeorm";
 import { ProductAttributes, Products } from "../models/products.entity";
 import { Repository } from "typeorm";

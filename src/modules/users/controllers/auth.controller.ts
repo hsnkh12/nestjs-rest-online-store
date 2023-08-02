@@ -1,8 +1,8 @@
-import { Controller, InternalServerErrorException, NotFoundException, UnauthorizedException } from "@nestjs/common";
+import { Controller } from "@nestjs/common";
 import { AuthService } from "../services/auth.service";
 import { UsersService } from '../services/users.service';
-import { Post, Body, Req, Res } from "@nestjs/common";
-import { Request, Response } from 'express';
+import { Post, Body, Res } from "@nestjs/common";
+import {  Response } from 'express';
 import { SigninDTO } from "../dto/auth.dto";
 import { CreateUserDTO } from "../dto/users.dto";
 

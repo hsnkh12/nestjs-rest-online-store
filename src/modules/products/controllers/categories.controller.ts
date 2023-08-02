@@ -1,7 +1,7 @@
 import { Controller } from "@nestjs/common";
 import { CategoriesService } from "../services/categories.service";
-import { Post, Put, Get, Delete, Req, Res, Body, Param, Query } from "@nestjs/common";
-import { Request, Response } from 'express';
+import { Post, Put, Get, Delete, Req, Res, Body, Param } from "@nestjs/common";
+import {  Response } from 'express';
 import { CreateCategoriesDTO } from "../dto/categories.dto";
 import { UnauthorizedException } from "@nestjs/common";
 

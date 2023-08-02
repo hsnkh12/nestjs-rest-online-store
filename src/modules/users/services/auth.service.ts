@@ -2,9 +2,8 @@ import { Inject, Injectable, NotFoundException, UnauthorizedException } from "@n
 import { Users } from "../models/users.entity";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { ResetPasswordDTO, SigninDTO } from "../dto/auth.dto";
+import { SigninDTO } from "../dto/auth.dto";
 import { PasswordService } from "src/modules/utils/services/password.service";
-import { ValidationError } from "class-validator";
 import { JwtAuthService } from "src/modules/jwt/services/jwt.service";
 
 @Injectable()
@@ -32,9 +31,5 @@ export class AuthService{
         } 
         
         throw new UnauthorizedException()
-    }
-
-    async resetPassword(user_id: string, passwordObj: ResetPasswordDTO){
-        return
     }
 }

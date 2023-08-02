@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Users } from "../models/users.entity";
-import { QueryFailedError, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { CreateUserDTO, UpdateUserDTO } from "../dto/users.dto";
 import { Inject } from "@nestjs/common";
 import { PasswordService } from "src/modules/utils/services/password.service";

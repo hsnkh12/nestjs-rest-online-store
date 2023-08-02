@@ -16,8 +16,7 @@ export class CategoriesService{
 
         try{
             const category = this.categoriesRep.create(data)
-            await this.categoriesRep.save(category)
-            return category
+            return this.categoriesRep.save(category)
         }
         catch(err){
             throw new BadRequestException()
@@ -35,8 +34,7 @@ export class CategoriesService{
         }
 
         try{
-            await this.categoriesRep.save(category)
-            return category
+            return this.categoriesRep.save(category)
         } catch(err){
             throw new BadRequestException()
         }
@@ -53,11 +51,11 @@ export class CategoriesService{
     }
 
     async findAllCategories(){
-        return await this.categoriesRep.find({})
+        return this.categoriesRep.find({})
     }
 
     async deleteCategory(category_name : string){
         const category = await this.findOneCategory(category_name)
-        return await this.categoriesRep.delete(category)
+        return this.categoriesRep.delete(category)
     }
 }

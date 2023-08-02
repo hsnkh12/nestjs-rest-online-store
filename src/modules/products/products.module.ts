@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { NestModule, RequestMethod } from '@nestjs/common';
+import { NestModule } from '@nestjs/common';
 import { MiddlewareConsumer } from '@nestjs/common';
 import { JwtMiddlewareService } from '../jwt/services/jwt_middleware.service';
 import { ProductsService } from './services/products.service';

@@ -1,8 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Orders } from "../models/orders.entity";
 import { Repository, DeepPartial } from 'typeorm';
-import { OrdersQuery, CreateOrderDTO, AddressDTO, CartDTO } from '../dto/orders.dto';
+import { OrdersQuery, AddressDTO, CartDTO } from '../dto/orders.dto';
 import { Users } from "src/modules/users/models/users.entity";
 
 

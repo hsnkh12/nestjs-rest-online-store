@@ -1,6 +1,6 @@
-import { Entity, Column, Unique, PrimaryColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, PrimaryColumn, OneToMany } from "typeorm";
 import { Products } from "./products.entity";
-import { UUID } from "crypto";
+
 
 
 

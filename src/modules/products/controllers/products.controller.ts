@@ -1,6 +1,6 @@
 import { Controller, UnauthorizedException } from "@nestjs/common";
 import { Post, Put, Get, Delete, Req, Res, Body, Param, Query } from "@nestjs/common";
-import { Request, Response } from 'express';
+import {  Response } from 'express';
 import { ProductsService } from "../services/products.service";
 import { ProductsQueryDTO, ProductAttrsQueryDTO, CreateProductsDTO, CreateProductAttrsDTO} from "../dto/products.dto";
 

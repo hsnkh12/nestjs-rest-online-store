@@ -1,4 +1,4 @@
-import { IsArray, IsJSON, IsNumber, IsOptional, IsPostalCode, IsString } from "class-validator";
+import { IsArray, IsNumber, IsOptional, IsString } from "class-validator";
 import { Cart, Item } from "../interfaces/cart.interface";
 import { DeepPartial } from "typeorm";
 import { Users } from "src/modules/users/models/users.entity";

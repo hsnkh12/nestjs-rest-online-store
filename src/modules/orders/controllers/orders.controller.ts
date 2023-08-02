@@ -1,5 +1,5 @@
 import { Controller, UnauthorizedException } from "@nestjs/common";
-import { Post, Put, Get, Delete, Req, Res, Body, Param, Query } from "@nestjs/common";
+import { Post, Get, Delete, Req, Res, Body, Param, Query } from "@nestjs/common";
 import { AddressDTO, CartDTO, OrdersQuery } from "../dto/orders.dto";
 import { OrdersService } from '../services/orders.service';
 
