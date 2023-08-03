@@ -1,3 +1,4 @@
+import { Addresses } from "src/modules/orders/models/address.entity";
 import { Orders } from "src/modules/orders/models/orders.entity";
 import { Entity, Column, Unique, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 
@@ -21,6 +22,9 @@ export class Users{
     @Column({default: false})
     is_admin: boolean
 
-    @OneToMany(() => Orders, o => o.order_id)
+    @OneToMany(() => Orders, o => o.user)
     orders: Orders[]
+
+    @OneToMany(() => Addresses, o => o.user)
+    addresses: Addresses[]
 }

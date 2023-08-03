@@ -12,13 +12,13 @@ export class CategoriesController{
 
     @Get("/")
     async list( @Res() res: Response){
-        const categories = this.categoriesService.findAllCategories()
+        const categories = await this.categoriesService.findAllCategories()
         res.status(200).json(categories)
     }
 
     @Get("/:name")
     async get( @Res() res: Response, @Param("name") category_name : string){
-        const category = this.categoriesService.findOneCategory(category_name)
+        const category = await this.categoriesService.findOneCategory(category_name)
         res.status(200).json(category)
     }
 

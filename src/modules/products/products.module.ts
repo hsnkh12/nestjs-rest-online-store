@@ -5,7 +5,7 @@ import { JwtMiddlewareService } from '../jwt/services/jwt_middleware.service';
 import { ProductsService } from './services/products.service';
 import { ProductsController } from './controllers/products.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Products, ProductAttributes } from './models/products.entity';
+import { Products, ProductSpecs } from './models/products.entity';
 import { Categories } from './models/categories.entity';
 import { JwtAuthModule } from '../jwt/jwt.module';
 import { CategoriesService } from './services/categories.service';
@@ -14,7 +14,7 @@ import { CategoriesController } from './controllers/categories.controller';
 
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Categories, Products, ProductAttributes]), JwtAuthModule],
+    imports: [TypeOrmModule.forFeature([Categories, Products, ProductSpecs]), JwtAuthModule],
     providers: [ProductsService, CategoriesService],
     controllers:[ProductsController, CategoriesController]
 })

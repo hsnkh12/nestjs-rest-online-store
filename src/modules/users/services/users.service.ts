@@ -23,7 +23,7 @@ export class UsersService{
         const user = await this.UsersRep.findOne({where: {user_id: user_id}})
 
         if (!user){
-            throw new NotFoundException()
+            throw new NotFoundException("User not found")
         }
         return user
     }
@@ -49,7 +49,7 @@ export class UsersService{
         })
 
         if(!user){
-            throw new NotFoundException()
+            throw new NotFoundException("User not found")
         }
 
         return this.UsersRep.save(user)

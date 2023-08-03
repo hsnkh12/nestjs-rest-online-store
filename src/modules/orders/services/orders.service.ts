@@ -2,8 +2,10 @@ import { BadRequestException, Injectable, NotFoundException } from "@nestjs/comm
 import { InjectRepository } from "@nestjs/typeorm";
 import { Orders } from "../models/orders.entity";
 import { Repository, DeepPartial } from 'typeorm';
-import { OrdersQuery, AddressDTO, CartDTO } from '../dto/orders.dto';
+import { OrdersQuery, CartDTO } from '../dto/orders.dto';
 import { Users } from "src/modules/users/models/users.entity";
+import { Addresses } from "../models/address.entity";
+import { Cart } from "../interfaces/cart.interface";
 
 
 
@@ -15,7 +17,7 @@ export class OrdersService{
     async findAllOrders(query: OrdersQuery){
 
         if(query.status){
-            return this.OrdersRep.find({ where: {state: query.status}})
+            return this.OrdersRep.find({ where: {status: query.status}})
         }
 
         return this.OrdersRep.find()
@@ -23,10 +25,10 @@ export class OrdersService{
 
     async findOneOrder(order_id : string){
 
-        const order = await this.OrdersRep.findOne({where: {order_id:order_id}, relations: ["user_id"]})
+        const order = await this.OrdersRep.findOne({where: {order_id:order_id}, relations: ["user","address"]})
 
         if (!order){
-            throw new NotFoundException()
+            throw new NotFoundException("Order not found")
         }
         return order
     }
@@ -40,7 +42,7 @@ export class OrdersService{
             }
             
             const data : DeepPartial<Orders> = {
-                user_id : user,
+                user : user,
                 status : "p"
             }
 
@@ -53,29 +55,38 @@ export class OrdersService{
         }
     }
 
-    async submitAddressToOrder(order_id : string, data : AddressDTO, user_id : string){
+    async submitAddressToOrder(order_id : string, address_title : string, user_id : string){
 
 
         const user : DeepPartial<Users> = {
             user_id : user_id
         }
 
+        const address : DeepPartial<Addresses> = {
+            address_title: address_title,
+            user : user
+        }
+
+        if (!address){
+            throw new BadRequestException("Invalid address title")
+        }
+
         const order = await this.OrdersRep.preload({ 
             order_id, 
-            user_id: user
+            user: user
         })
         if(!order){
-            throw new NotFoundException()
+            throw new NotFoundException("Order not found")
         }
 
         if(order.is_submitted == true){
-            throw new BadRequestException()
+            throw new BadRequestException("Order is already submitted")
         }
 
-        return this.OrdersRep.save({...order, ...data})
+        return this.OrdersRep.save({...order, address})
     }
 
-    async submitCartToOrder(order_id : string, data : CartDTO, user_id : string){
+    async submitCartToOrder(order_id : string, data : Cart, user_id : string){
 
         const user : DeepPartial<Users> = {
             user_id : user_id
@@ -83,16 +94,16 @@ export class OrdersService{
 
         const order = await this.OrdersRep.preload({ 
             order_id, 
-            user_id : user,
+            user: user,
             
         })
 
         if(!order){
-            throw new NotFoundException()
+            throw new NotFoundException("Order not found")
         }
 
         if(order.is_submitted == true){
-            throw new BadRequestException()
+            throw new BadRequestException("Order is already submitted")
         }
 
         order.total_price =data.total_price,
@@ -109,15 +120,15 @@ export class OrdersService{
 
         const order = await this.OrdersRep.preload({ 
             order_id, 
-            user_id : user,
+            user: user,
         })
 
         if(!order){
-            throw new NotFoundException()
+            throw new NotFoundException("Order not found")
         }
 
-        if(order.is_submitted == true && order.cart && order.address){
-            throw new BadRequestException()
+        if(order.is_submitted == true || order.cart == null ){
+            throw new BadRequestException("Invalid order submission")
         }
 
         order.date_submitted = new Date()

@@ -1,7 +1,8 @@
 import { Controller, UnauthorizedException } from "@nestjs/common";
 import { Post, Get, Delete, Req, Res, Body, Param, Query } from "@nestjs/common";
-import { AddressDTO, CartDTO, OrdersQuery } from "../dto/orders.dto";
+import { CartDTO, OrdersQuery } from "../dto/orders.dto";
 import { OrdersService } from '../services/orders.service';
+import { Cart } from "../interfaces/cart.interface";
 
 
 @Controller("orders")
@@ -22,7 +23,7 @@ export class OrdersController{
     @Get("/:id")
     async getOrder(@Req() req, @Res() res, @Param("id") order_id : string){
         const order = await this.ordersService.findOneOrder(order_id)
-        if (!req.user.is_admin&&order.user_id != req.user.user_id){
+        if (!req.user.is_admin&&order.user.user_id != req.user.user_id){
             throw new UnauthorizedException()
         }
         res.status(200).json(order)
@@ -34,14 +35,14 @@ export class OrdersController{
         res.status(201).json(order)
     }
 
-    @Post("address/:id")
-    async submitAddress(@Req() req, @Res() res, @Body() body: AddressDTO, @Param("id") order_id:string){
-        const order = await this.ordersService.submitAddressToOrder(order_id, body, req.user.user_id)
+    @Post("address/:address_title/:order_id")
+    async submitAddress(@Req() req, @Res() res, @Param("address_title") address_title, @Param("order_id") order_id:string){
+        const order = await this.ordersService.submitAddressToOrder(order_id, address_title, req.user.user_id)
         res.status(201).json(order)
     }
 
     @Post("cart/:id")
-    async submitCart(@Req() req, @Res() res, @Body() body: CartDTO, @Param("id") order_id:string){
+    async submitCart(@Req() req, @Res() res, @Body() body: Cart, @Param("id") order_id:string){
         const order = await this.ordersService.submitCartToOrder(order_id, body, req.user.user_id)
         res.status(201).json(order)
     }

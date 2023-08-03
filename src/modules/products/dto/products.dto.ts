@@ -13,14 +13,18 @@ export class CreateProductsDTO {
     price : number
 
     @IsString()
-    category_name : DeepPartial<Categories> 
+    description : string
+
+    @IsString()
+    category : DeepPartial<Categories> 
+
 }
 
 
-export class CreateProductAttrsDTO {
+export class CreateProductSpecDTO {
 
-    @IsString()
-    product_id : DeepPartial<Products>
+    @IsNumber()
+    product : DeepPartial<Products>
 
     @IsString()
     second_name : string 
@@ -37,15 +41,15 @@ export class ProductsQueryDTO {
     price : number
 
     @IsString()
-    category_name : DeepPartial<Categories>
+    category_name : string
 }
 
 
-export class ProductAttrsQueryDTO {
+export class ProductSpecQueryDTO {
 
 
     @IsString()
-    product_id : DeepPartial<Products>
+    product_name : string
 
     @IsString()
     @IsOptional()

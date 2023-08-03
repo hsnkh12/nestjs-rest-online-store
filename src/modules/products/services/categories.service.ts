@@ -30,13 +30,13 @@ export class CategoriesService{
         })
 
         if (!category){
-            throw new NotFoundException()
+            throw new NotFoundException("Category not found")
         }
 
         try{
             return this.categoriesRep.save(category)
         } catch(err){
-            throw new BadRequestException()
+            throw new BadRequestException("Invalid data")
         }
         
     }
@@ -45,7 +45,7 @@ export class CategoriesService{
         const category = await this.categoriesRep.findOne({ where: {category_name: category_name}})
 
         if(! category){
-            throw new NotFoundException()
+            throw new NotFoundException("Category not found")
         }
         return category
     }

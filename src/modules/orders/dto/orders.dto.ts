@@ -1,22 +1,8 @@
 import { IsArray, IsNumber, IsOptional, IsString } from "class-validator";
-import { Cart, Item } from "../interfaces/cart.interface";
 import { DeepPartial } from "typeorm";
 import { Users } from "src/modules/users/models/users.entity";
+import { Item } from "../interfaces/cart.interface";
 
-
-// export class ItemDTO implements Item{
-
-//     @IsString()
-//     product_id : string 
-//     @IsString()
-//     product_a_id : string
-//     @IsString()
-//     product_name : string
-//     @IsNumber()
-//     quantity : number
-//     @IsNumber()
-//     total_price : number
-// }
 
 export class CreateOrderDTO{
     @IsString()
@@ -32,15 +18,15 @@ export class OrdersQuery{
     status : string
 }
 
-export class ItemDTO implements Item{
+export class ItemDTO{
 
 
-    @IsString()
-    product_id : string 
+    @IsNumber()
+    product_id : number
     @IsString()
     product_a_id : string
     @IsString()
-    product_name : string
+    product_full_name : string
     @IsNumber()
     quantity : number
     @IsNumber()
@@ -49,7 +35,7 @@ export class ItemDTO implements Item{
     
 }
 
-export class CartDTO implements Cart{
+export class CartDTO {
 
     @IsNumber()
     total_price : number
@@ -57,17 +43,3 @@ export class CartDTO implements Cart{
     items: Item[]
 }
 
-export class AddressDTO {
-
-    @IsString()
-    postal_code : string 
-
-    @IsString()
-    city : string 
-
-    @IsString()
-    state : string 
-
-    @IsString()
-    address : string 
-}

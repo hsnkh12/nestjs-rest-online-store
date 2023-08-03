@@ -16,7 +16,7 @@ import { JwtAuthModule } from './modules/jwt/jwt.module';
   })
     , TypeOrmModule.forRoot({
     type: 'mysql',
-    host: 'localhost',
+    host: process.env.DB_HOST,
     port: 3306,
     username: "root",
     password: process.env.DB_PASSWORD,

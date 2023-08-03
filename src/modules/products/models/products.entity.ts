@@ -5,8 +5,8 @@ import { Categories } from "./categories.entity";
 @Unique(["name"])
 export class Products{
 
-    @PrimaryGeneratedColumn('uuid')
-    product_id : string 
+    @PrimaryGeneratedColumn()
+    product_id : number 
 
     @Column()
     name : string 
@@ -14,22 +14,25 @@ export class Products{
     @Column()
     price : number 
 
-    @ManyToOne(() => Categories, cat => cat.products)
-    category_name: Categories;
+    @Column()
+    description : string
 
-    @OneToMany(() => ProductAttributes, pa => pa.product_a_id)
-    attributes: ProductAttributes[];
+    @ManyToOne(() => Categories, category => category.products)
+    category: Categories;
+
+    @OneToMany(() => ProductSpecs, pa => pa.product)
+    specifications: ProductSpecs[];
     
 }
 
-@Entity("Product_attibute")
-export class ProductAttributes{
+@Entity("Product_specfications")
+export class ProductSpecs{
 
     @PrimaryGeneratedColumn('uuid')
     product_a_id : string 
 
-    @ManyToOne(() => Products, p => p.attributes)
-    product_id: Products;
+    @ManyToOne(() => Products, p => p.specifications)
+    product: Products;
 
     @Column()
     second_name : string

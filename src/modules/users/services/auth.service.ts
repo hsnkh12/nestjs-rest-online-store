@@ -21,7 +21,7 @@ export class AuthService{
         const user = await this.UsersRep.findOne({where: { username: data.username}})
 
         if (!user){
-            throw new NotFoundException()
+            throw new NotFoundException("User with this username not found")
         }
 
         const passwordIsValid = this.passwordService.comparePassword(data.password, user.password)
@@ -30,6 +30,6 @@ export class AuthService{
             return await this.jwtService.generateToken(user)
         } 
         
-        throw new UnauthorizedException()
+        throw new UnauthorizedException("Invalid creditinials")
     }
 }
