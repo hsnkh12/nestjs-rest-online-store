@@ -20,13 +20,6 @@ export class ProductsService{
         }
 
         const products = this.ProductsRep.find({where: { category: category }})
-        if (query.price){
-            return (await products).filter(( p) => {
-                if (p.price == query.price){
-                    return p
-                }
-            })
-        }
 
         return products
     }
@@ -46,15 +39,6 @@ export class ProductsService{
             name : query.product_name
         }
         const attrs = this.SpecRep.find({where: {product: product}})
-
-        if(query.color){
-            return (await attrs).filter( a => {
-                if(a.color == query.color){
-                    return a
-                }
-            })
-        }
-
         return attrs
     }
 

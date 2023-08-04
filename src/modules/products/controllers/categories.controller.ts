@@ -4,8 +4,10 @@ import { Post, Put, Get, Delete, Req, Res, Body, Param } from "@nestjs/common";
 import {  Response } from 'express';
 import { CreateCategoriesDTO } from "../dto/categories.dto";
 import { UnauthorizedException } from "@nestjs/common";
+import { ApiBearerAuth } from "@nestjs/swagger";
 
 @Controller("categories")
+@ApiBearerAuth()
 export class CategoriesController{
 
     constructor(private readonly categoriesService: CategoriesService){}

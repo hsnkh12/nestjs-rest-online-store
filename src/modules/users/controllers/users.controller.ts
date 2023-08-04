@@ -4,8 +4,10 @@ import { Get, Put, Delete } from "@nestjs/common";
 import { Param, Body, Res, Req} from "@nestjs/common";
 import {  Response } from 'express';
 import { UpdateUserDTO } from '../dto/users.dto';
+import { ApiBearerAuth } from "@nestjs/swagger";
 
 @Controller("users")
+@ApiBearerAuth()
 export class UsersController{
 
     constructor( 
@@ -43,8 +45,8 @@ export class UsersController{
         if(user_id != req.user.user_id && !req.user.is_admin){
             throw new UnauthorizedException()
         }
-        await this.usersService.updateUser(body, user_id)
-        res.status(201).send(true)
+        const user = await this.usersService.updateUser(body, user_id)
+        res.status(201).send(user)
     }
 
     @Delete("/:id")

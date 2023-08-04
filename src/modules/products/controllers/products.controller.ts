@@ -1,11 +1,13 @@
-import { Controller, UnauthorizedException } from "@nestjs/common";
+import { Controller, UnauthorizedException, UseGuards } from "@nestjs/common";
 import { Post, Put, Get, Delete, Req, Res, Body, Param, Query } from "@nestjs/common";
 import {  Response } from 'express';
 import { ProductsService } from "../services/products.service";
 import { ProductsQueryDTO, ProductSpecQueryDTO, CreateProductsDTO, CreateProductSpecDTO} from "../dto/products.dto";
+import { ApiBearerAuth } from "@nestjs/swagger";
 
 
 @Controller("products")
+@ApiBearerAuth()
 export class ProductsController{
 
     constructor( 
@@ -29,14 +31,14 @@ export class ProductsController{
         res.status(201).json(attr)
     }
 
-    @Get("spec/:id")
-    async getAttr(@Res() res:Response, product_a_id : string){
+    @Get("spec/:product_spec_id")
+    async getAttr(@Res() res:Response, @Param("product_spec_id") product_a_id : string){
         const attr = await this.productService.findOneProductAttr(product_a_id)
         res.status(200).json(attr)
     }
 
-    @Put("spec/:id")
-    async putAttr(@Res() res:Response, @Req() req, @Body() body:CreateProductSpecDTO, @Param("id") product_a_id){
+    @Put("spec/:product_spec_id")
+    async putAttr(@Res() res:Response, @Req() req, @Body() body:CreateProductSpecDTO, @Param("product_spec_id") product_a_id :string){
 
         if (!req.user.is_admin){
             throw new UnauthorizedException()
@@ -46,8 +48,8 @@ export class ProductsController{
         res.status(201).json(attr)
     }
 
-    @Delete("spec/:id")
-    async deleteAttr(@Res() res:Response, @Req() req, @Param("id") id:string){
+    @Delete("spec/:product_spec_id")
+    async deleteAttr(@Res() res:Response, @Req() req, @Param("product_spec_id") id:string){
 
         if (!req.user.is_admin){
             throw new UnauthorizedException()
@@ -62,8 +64,8 @@ export class ProductsController{
         res.status(200).json(products)
     }
 
-    @Get("/:id")
-    async getProduct(@Res() res:Response, @Param("id") product_id:number){
+    @Get("/:product_id")
+    async getProduct(@Res() res:Response, @Param("product_id") product_id:number){
         const product = await this.productService.findOneProduct(product_id)
         res.status(200).json(product)
     }
@@ -80,8 +82,8 @@ export class ProductsController{
     }
 
     
-    @Put("/:id")
-    async putProduct(@Res() res:Response, @Req() req, @Body() body:CreateProductsDTO, @Param("id") product_id:number){
+    @Put("/:product_id")
+    async putProduct(@Res() res:Response, @Req() req, @Body() body:CreateProductsDTO, @Param("product_id") product_id:number){
         
         if (!req.user.is_admin){
             throw new UnauthorizedException()

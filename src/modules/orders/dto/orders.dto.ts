@@ -2,12 +2,16 @@ import { IsArray, IsNumber, IsOptional, IsString } from "class-validator";
 import { DeepPartial } from "typeorm";
 import { Users } from "src/modules/users/models/users.entity";
 import { Item } from "../interfaces/cart.interface";
+import { ApiProperty } from "@nestjs/swagger";
 
 
 export class CreateOrderDTO{
     @IsString()
+    @ApiProperty()
     user_id : DeepPartial<Users>
+    
     @IsString()
+    @ApiProperty()
     status : string
 }
 
